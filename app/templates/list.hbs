@@ -1,0 +1,29 @@
+{{#each model as |list index|}}
+  <div class="col-md-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4>{{ember-inline-edit value=list.title placeholder="Add Title" }}</h4>
+        {{ember-inline-edit field='textarea' value=list.description placeholder="Add Description" }}
+      </div>
+      <div class="panel-body">
+        <h4> Todo List Items</h4>
+
+        {{#each list.items as |item index|}}
+          <div class="thumbnail">
+            <h4>{{ember-inline-edit value=item.title placeholder="Add Title" }}</h4>
+            {{ember-inline-edit field='textarea' value=item.description placeholder="Add Description" }}
+          <button {{action 'deleteList' item}} >Delete List Item</button>
+          </div>  <!-- End of the item thumnail  -->
+        {{/each}} <!-- End of the list items each loop  -->
+        <button {{action 'createListItem' list}} >Add New List</button>
+        <button {{action 'deleteList' list}} >Delete List</button>
+      </div> <!-- End of the list items panel body  -->
+    </div> <!-- End of the list items panel panel-default  -->
+  </div>  <!-- End of the list col  -->
+{{/each}} <!-- End of the list each loop  -->
+<div class="col-md-3">
+  <button class="form-control" {{action 'createList'}}>Add New List Item</button>
+</div>
+
+
+{{outlet}}
