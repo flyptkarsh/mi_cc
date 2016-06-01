@@ -1,29 +1,56 @@
+
 {{#each model as |list index|}}
-  <div class="col-md-3">
-    <div class="panel panel-default">
-      <div class="panel-heading">
+  {{#if isShowingListModal}}
+    {{#modal-dialog targetAttachment="center"
+                    wrapper-class="col-md-6"
+                    translucentOverlay=true}}
         <h4>{{ember-inline-edit value=list.title placeholder="Add Title" }}</h4>
         {{ember-inline-edit field='textarea' value=list.description placeholder="Add Description" }}
-      </div>
-      <div class="panel-body">
-        <h4> Todo List Items</h4>
+        <button class="btn btn-danger btn-sm pull-right" {{action 'deleteList' list}} >Delete</button>
+        <button class="btn btn-info btn-sm pull-right" {{action 'toggleListModal' list}} >Done</button>
+      {{/modal-dialog}}
+  {{/if}}
 
-        {{#each list.items as |item index|}}
-          <div class="thumbnail">
-            <h4>{{ember-inline-edit value=item.title placeholder="Add Title" }}</h4>
-            {{ember-inline-edit field='textarea' value=item.description placeholder="Add Description" }}
-          <button class="btn btn-danger  btn-block" {{action 'deleteList' item}} >Delete List Item</button>
-          </div>  <!-- End of the item thumnail  -->
-        {{/each}} <!-- End of the list items each loop  -->
-        <button class="btn btn-primary btn-block" {{action 'createListItem' list}} >Add New List Item</button>
-        <button class="btn btn-danger  btn-block" {{action 'deleteList' list}} >Delete List</button>
-      </div> <!-- End of the list items panel body  -->
-    </div> <!-- End of the list items panel panel-default  -->
-  </div>  <!-- End of the list col  -->
-{{/each}} <!-- End of the list each loop  -->
-<div class="col-md-3">
-  <button class="btn btn-primary btn-block" {{action 'createList'}}>Add New List</button>
-</div>
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <button class="btn btn-info btn-sm pull-right" {{action "toggleListModal"}}>View</button>
+          <button class="btn btn-danger btn-sm pull-right" {{action 'deleteList' list}} >Delete</button>
+          <h4>{{ember-inline-edit value=list.title placeholder="Add Title" }}</h4>
+          {{ember-inline-edit field='textarea' value=list.description placeholder="Add Description" }}
+        </div>
+        <div class="panel-body">
+          <h4> Todo List Items</h4>
+
+          {{#each list.items as |item index|}}
+            {{#if isShowingItemModal}}
+              {{#modal-dialog targetAttachment="center"
+                              translucentOverlay=true}}
+                  <button class="btn btn-info btn-sm pull-right" {{action 'toggleItemModal' list}} >Done</button>
+                  <button class="btn btn-danger btn-sm pull-right" {{action 'deleteList' item}} >Delete</button>
+                  <h4>{{ember-inline-edit value=item.title placeholder="Add Title" }}</h4>
+                  {{ember-inline-edit field='textarea' value=item.description placeholder="Add Description" }}
+                {{/modal-dialog}}
+              {{/if}}
+            <div class="thumbnail">
+              <button class="btn btn-info btn-sm pull-right" {{action "toggleItemModal"}}>View</button>
+              <button class="btn btn-danger btn-sm pull-right" {{action 'deleteList' item}} >Delete</button>
+              <h4>{{ember-inline-edit value=item.title placeholder="Add Title" }}</h4>
+              {{ember-inline-edit field='textarea' value=item.description placeholder="Add Description" }}
+            </div>  <!-- End of the item thumnail  -->
+          {{/each}} <!-- End of the list items each loop  -->
+          <button class="btn btn-primary btn-block" {{action 'createListItem' list}} >Add New List Item</button>
+        </div> <!-- End of the list items panel body  -->
+      </div> <!-- End of the list items panel panel-default  -->
+    </div>  <!-- End of the list col  -->
+  {{/each}} <!-- End of the list each loop  -->
+    <div class="col-md-3">
+      <button class="btn btn-primary btn-block" {{action 'createList'}}>Add New List</button>
+    </div>
+
+
+
+
 
 
 {{outlet}}
