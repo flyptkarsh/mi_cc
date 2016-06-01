@@ -12,17 +12,17 @@
           <div class="thumbnail">
             <h4>{{ember-inline-edit value=item.title placeholder="Add Title" }}</h4>
             {{ember-inline-edit field='textarea' value=item.description placeholder="Add Description" }}
-          <button {{action 'deleteList' item}} >Delete List Item</button>
+          <button class="btn btn-danger  btn-block" {{action 'deleteList' item}} >Delete List Item</button>
           </div>  <!-- End of the item thumnail  -->
         {{/each}} <!-- End of the list items each loop  -->
-        <button {{action 'createListItem' list}} >Add New List</button>
-        <button {{action 'deleteList' list}} >Delete List</button>
+        <button class="btn btn-primary btn-block" {{action 'createListItem' list}} >Add New List Item</button>
+        <button class="btn btn-danger  btn-block" {{action 'deleteList' list}} >Delete List</button>
       </div> <!-- End of the list items panel body  -->
     </div> <!-- End of the list items panel panel-default  -->
   </div>  <!-- End of the list col  -->
 {{/each}} <!-- End of the list each loop  -->
 <div class="col-md-3">
-  <button class="form-control" {{action 'createList'}}>Add New List Item</button>
+  <button class="btn btn-primary btn-block" {{action 'createList'}}>Add New List</button>
 </div>
 
 
